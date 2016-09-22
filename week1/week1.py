@@ -1,8 +1,9 @@
 """
 #############################################################
 ## Stat 202A - Practice assignment
-## Author:
-## Date :
+## Author: Aaron Wang
+## SID: 704556662
+## Date: 2016-09-22
 ## Description: Practice completing a python script and 
 ## uploading it to CCLE.
 #############################################################
