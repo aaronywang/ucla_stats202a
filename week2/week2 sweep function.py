@@ -27,15 +27,9 @@ import numpy as np
 
 
 """ Problem 1 """
-A = np.array([[1,2,3],[7,11,13],[17,21,25]], dtype = float)
+A = np.array([[1,2,3],[7,11,13],[17,21,25]], dtype = float).T
 
-A = A.transpose()
 
-A[0,1]
-
-n,c = A.shape
-n
-   
 """ Function 1: Sweep operation """
 def mySweep(A, m):
     """
@@ -81,6 +75,21 @@ def myDet(A):
     
     ## Copy matrix A into B so that A is unchangeed.
     B = np.copy(A)    
+    n,c = A.shape
+    det = 1
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if i != k and j != k:
+                    B[i,j] = B[i,j]-((B[i,k]*B[k,j])/B[k,k])
+        for i in range(n):
+            if (i != k):
+                B[i,k] = B[i,k]/B[k,k]
+        for j in range(n):
+            if (j != k):
+                B[k,j] = B[k,j]/B[k,k]
+        det = det * B[k,k]
+        B[k,k] = -1/B[k,k]
     
     
     """ Fill in the body of this function! """
@@ -89,12 +98,14 @@ def myDet(A):
     """ Returns the determinant of A. This should be a number, 
      e.g. of class numpy.float """
     return(det)
-    
+  
     
 """ Problem 2 """
 
 
 """ Function 3: Elementwise version of Gauss Jordan """   
+
+
 def myGaussJordan(A, m):
     
    """ Perform Gauss Jordan elimination on A.
@@ -103,18 +114,23 @@ def myGaussJordan(A, m):
    """
   
    """FILL IN THE BODY OF THIS FUNCTION """
-    
-    
-    
-    
-    
-    
-    
+   #First obtain echelon form of matrix
+   n = A.shape[0]
+   B = np.hstack((A,np.identity(n))) #figure out the equivalent to cbind in R and the shape
+   for k in range(m):
+       a = B[k,k]
+       for j in range(n*2):
+           B[k,j] = B[k,j]/a
+       for i in range(n):
+           if i != k:
+               a = B[i,k]
+               for j in range(n*2):
+                   B[i,j] = B[i,j] - B[k,j]*a
+
    """ Function returns the matrix (aka array) B """
    return B    
     
-    
-""" Function 4: Vectorized version of Gauss Jordan """    
+    """ Function 4: Vectorized version of Gauss Jordan """    
 def myGaussJordanVec(A, m):
     
    """ Perform Gauss Jordan elimination on A.
@@ -123,12 +139,15 @@ def myGaussJordanVec(A, m):
    """
   
    """FILL IN THE BODY OF THIS FUNCTION """
-    
-    
-    
-    
-    
-    
+   n = A.shape[0]
+   B = np.hstack((A,np.identity(n))) #figure out the equivalent to cbind in R and the shape
+   for k in range(m):
+       a = B[k,k]
+       B[k,] = B[k,]/a
+       for i in range(n):
+           if i != k:
+               a = B[i,k]
+               B[i,] = B[i,] - B[k,]*a
     
    """ Function returns the matrix (aka array) B """
    return B    

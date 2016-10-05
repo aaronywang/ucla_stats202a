@@ -15,3 +15,33 @@ GaussJordanVec <- function(A,m)
     }
   }
 }
+
+#Linear Regression
+n <- 100
+p <- 5
+X <- matrix(rnorm(n*p),nrow = n)
+beta <- matrix(1:p, nrow = p)
+
+Y <- X%*%beta+rnorm(n)
+lm(Y~X)
+
+Z <- cbind(rep(1,n),X,Y)
+A <- t(Z)%*%Z
+S <- mySweep(A,p+1)
+beta <- Z[1:p+1, p+z]
+
+#Linear Regression Model
+n = 100
+x1 = rnorm(n)
+x2 = rnorm(n)
+y = x1 + 2*x2 + rnorm(n)
+lm (Y ~ x1 + x2)
+
+#Create data and plot to LM
+A = data.frame(v1 = x1, v2 = x2, v3 = y)
+lm(v3 ~ v1 + v2, data = A)
+
+#Example
+data(trees)
+m <- lm(Volume ~ Height + Girth, data = lt)
+summary(m)

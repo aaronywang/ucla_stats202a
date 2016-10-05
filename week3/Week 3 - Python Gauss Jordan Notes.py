@@ -5,7 +5,7 @@ Created on Tue Oct  4 11:16:48 2016
 @author: aaron
 """
 
-#Gauss Jordan
+#Gauss Jordan Scalar (elemental) Version
 import numpy as np
 
 def GaussJordan(A,m):
@@ -22,6 +22,7 @@ def GaussJordan(A,m):
                     B[i,j] = B[i,j] - B[k,j]*a
         return B
 
+#Gauss Jordan Vectorized Version
 def GaussJordanVec(A,m):
     n = shape[0]
     B = np.hstack((A,np.identity(n))) #figure out the equivalent to cbind in R and the shape

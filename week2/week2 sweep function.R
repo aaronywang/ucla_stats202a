@@ -34,8 +34,6 @@
 #Test 3x3 Matrix with built in solve() function
 A <- matrix(c(1,2,3,7,11,13,17,21,25),3,3)
 
-A[1,2]
-
 mySweep <- function(A, m){
   
   # Perform a SWEEP operation on the square matrix A with the 
@@ -73,11 +71,6 @@ mySweep <- function(A, m){
   return(A)
 }
 
-solve(A)
--mySweep(A,3)
-
-
-
 
 #########################################################
 ## Function 2: Use sweep operation to find determinant ##
@@ -94,19 +87,32 @@ myDet <- function(A){
   #######################################
   ## FILL IN THE BODY OF THIS FUNCTION ##
   #######################################
-  
-  
-  
-  
-  
+  n <- dim(A)[1]
+  Det <- 1
+  for (k in 1:n) {
+    for (i in 1:n) {
+      for (j in 1:n) {
+        if (i != k & j != k) {
+          A[i,j] <- A[i,j]-(A[i,k]*A[k,j])/A[k,k]
+        }
+      }
+    }
+    for (i in 1:n) {
+      if (i != k) {
+        A[i,k] <- A[i,k]/A[k,k]
+      }
+    }
+    for (j in 1:n) {
+      if (j != k) {
+        A[k,j] <- A[k,j]/A[k,k]
+      }
+    }
+    Det <- Det * A[k,k]
+    A[k,k] = -1/A[k,k]
+  }
   ## Return the determinant (a real number, aka "numeric" class)
   return(Det)
 }
-
-
-A/-mySweep(A,3)[1][1]
-
-det(A)
 
 
 ## ~~~~~~~~~~~~~~~~~~~~~ ##
@@ -149,9 +155,6 @@ myGaussJordan <- function(A, m){
   return(B)
 }
 
-solve(A)
-myGaussJordan(A,3)
-  
 
 ####################################################
 ## Function 4: Vectorized version of Gauss Jordan ##
@@ -181,10 +184,6 @@ myGaussJordanVec <- function(A, m){
   }
   return(B)
 }
-
-solve(A)
-myGaussJordan(A,3)
-myGaussJordanVec(A,3)
 
 
 ########################################################
