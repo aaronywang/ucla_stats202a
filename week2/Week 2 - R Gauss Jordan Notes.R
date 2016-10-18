@@ -45,3 +45,6 @@ lm(v3 ~ v1 + v2, data = A)
 data(trees)
 m <- lm(Volume ~ Height + Girth, data = lt)
 summary(m)
+
+
+
